@@ -28,4 +28,10 @@ io.sockets.on('connection',function(socket){
         console.log('Отключились')
     })
 
+    socket.on('send mess', data => {
+        //когда сработает событье send mess
+        //я вызываю событие add mess и доп парам передаю объект с данными
+        io.sockets.emit('add mess', {msg: data})
+    })
+
 })

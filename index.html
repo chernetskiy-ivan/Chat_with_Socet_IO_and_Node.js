@@ -36,7 +36,7 @@
                 <label for="message">Сообщение</label>
                 <textarea name="message" id="message" class="form-control" placeholder="Введите сообщение"></textarea>
                 <br>
-                <input type="button" value="Отправить" class="btn btn-danger">
+                <input type="submit" value="Отправить" class="btn btn-danger">
             </form>
         </div>
         <div class="col-6">
@@ -51,6 +51,23 @@
     $(function() {
         //синоним open() - opens the socket.
         const socket = io.connect()
+        const $form = $("#messForm")
+        const $textarea = $("#message")
+        const $all_messages = $("#all_mess")
+
+        $form.submit(event => {
+            event.preventDefault()
+            //кидаем пользовательское событие send mess которое мы придумали
+            //доп парам передаем содержимое текст поля
+            socket.emit('send mess', $textarea.val())
+            //чистим текст поле
+            $textarea.val('')
+        })
+
+        socket.on('add mess', data => {
+            $all_messages.append("<div>" + data.msg + "</div>")
+        })
+
     })
 </script>
 </body>
