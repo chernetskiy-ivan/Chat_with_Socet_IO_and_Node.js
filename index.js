@@ -10,3 +10,22 @@ server.listen(3000)
 app.get('/', (request, response) => {
     response.sendFile(__dirname + '/index.html')
 })
+
+
+users = []
+connections = []
+
+//отслеживаем событие connection(выкидывается при заходе на сайт)
+//socket - объект подключения(будем встраивать его в масси connections)
+io.sockets.on('connection',function(socket){
+    console.log('Успешное соединение')
+    connections.push(socket)
+
+    //событие disconnect выкилывается когда пользователь покинул страницу(чат)
+    socket.on('disconnect', function(data) {
+        //удаляю 1 объект из массива по его индексу
+        connections.splice(connections.indexOf(socket), 1)
+        console.log('Отключились')
+    })
+
+})
