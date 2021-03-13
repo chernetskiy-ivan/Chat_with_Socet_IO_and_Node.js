@@ -33,10 +33,10 @@
         <div class="col-6">
             <h3>Форма сообщений</h3>
             <form id="messForm">
-                <label for="name">Имя</label>
+                <label for="name" id="nameTitle">Имя</label>
                 <input type="text" name="name" id="name" placeholder="Введите имя" class="form-control">
-                <br>
-                <label for="message">Сообщение</label>
+                <br id="nameButtom">
+                <label for="message" id="msg">Сообщение</label>
                 <textarea name="message" id="message" class="form-control" placeholder="Введите сообщение"></textarea>
                 <br>
                 <input type="submit" value="Отправить" class="btn btn-danger">
@@ -89,7 +89,11 @@
             event.preventDefault()
             //кидаем пользовательское событие send mess которое мы придумали
             //доп парам передаем содержимое текст поля
-            if($name.val() !== '') {
+            if($name.val() !== '' && $textarea.val() !== '') {
+                document.querySelector('#name').style.display = 'none'
+                document.querySelector('#nameTitle').style.display = 'none'
+                document.querySelector('#nameButtom').style.display = 'none'
+                document.querySelector('#msg').style.display = 'none'
                 socket.emit('send mess', {mess: $textarea.val(), name: $name.val(), className: alertClass})
             }
 
