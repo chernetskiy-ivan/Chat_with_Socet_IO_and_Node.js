@@ -22,7 +22,7 @@
         <a class="p-2 text-dark" href="#">Поддержка</a>
         <a class="p-2 text-dark" href="#">Цены</a>
     </nav>
-    <a class="btn btn-outline-primary" href="#">Решистрация</a>
+    <a class="btn btn-outline-primary" href="#">Регистрация</a>
 </header>
 <div class="container">
     <div class="py-5 text-center">
@@ -89,7 +89,10 @@
             event.preventDefault()
             //кидаем пользовательское событие send mess которое мы придумали
             //доп парам передаем содержимое текст поля
-            socket.emit('send mess', {mess: $textarea.val(), name: $name.val(), className: alertClass})
+            if($name.val() !== '') {
+                socket.emit('send mess', {mess: $textarea.val(), name: $name.val(), className: alertClass})
+            }
+
             //чистим текст поле
             $textarea.val('')
         })
