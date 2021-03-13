@@ -95,7 +95,7 @@
         })
 
         socket.on('add mess', data => {
-            $all_messages.append("<div class='alert alert-'" + data.className + "><b>" + data.name + "</b>: " + data.mess + "</div>")
+            $all_messages.append(`<div class='alert alert-${data.className}'><b>` + data.name + "</b>: " + data.mess + "</div>")
         })
 
     })
