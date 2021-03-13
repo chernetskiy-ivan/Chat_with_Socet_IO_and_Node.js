@@ -57,7 +57,7 @@
         const random = Math.floor(Math.random() * (max - min) + min)
 
         let alertClass
-        switch(rendom) {
+        switch(random) {
             case 1:
                 alertClass = 'secondary'
                 break
@@ -89,7 +89,7 @@
             event.preventDefault()
             //кидаем пользовательское событие send mess которое мы придумали
             //доп парам передаем содержимое текст поля
-            socket.emit('send mess', {mess: $textarea.val(), name: name.val(), className: alertClass})
+            socket.emit('send mess', {mess: $textarea.val(), name: $name.val(), className: alertClass})
             //чистим текст поле
             $textarea.val('')
         })
