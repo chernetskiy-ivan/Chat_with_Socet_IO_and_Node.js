@@ -57,18 +57,19 @@
         const $form = $("#messForm")
         const $textarea = $("#message")
         const $all_messages = $("#all_mess")
+        const $name = $("#name")
 
         $form.submit(event => {
             event.preventDefault()
             //кидаем пользовательское событие send mess которое мы придумали
             //доп парам передаем содержимое текст поля
-            socket.emit('send mess', $textarea.val())
+            socket.emit('send mess', {mess: $textarea.val(), name: name.val()})
             //чистим текст поле
             $textarea.val('')
         })
 
         socket.on('add mess', data => {
-            $all_messages.append("<div>" + data.msg + "</div>")
+            $all_messages.append("<div><b>" + data.name + "</b>: " + data.mess + "</div>")
         })
 
     })
