@@ -52,6 +52,32 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
     $(function() {
+        const min = 1
+        const max = 6
+        const random = Math.floor(Math.random() * (max - min) + min)
+
+        let alertClass
+        switch(rendom) {
+            case 1:
+                alertClass = 'secondary'
+                break
+            case 2:
+                alertClass = 'danger'
+                break
+            case 3:
+                alertClass = 'success'
+                break
+            case 4:
+                alertClass = 'warning'
+                break
+            case 5:
+                alertClass = 'info'
+                break
+            case 6:
+                alertClass = 'light'
+                break
+        }
+
         //синоним open() - opens the socket.
         const socket = io.connect()
         const $form = $("#messForm")
@@ -63,13 +89,13 @@
             event.preventDefault()
             //кидаем пользовательское событие send mess которое мы придумали
             //доп парам передаем содержимое текст поля
-            socket.emit('send mess', {mess: $textarea.val(), name: name.val()})
+            socket.emit('send mess', {mess: $textarea.val(), name: name.val(), className: alertClass})
             //чистим текст поле
             $textarea.val('')
         })
 
         socket.on('add mess', data => {
-            $all_messages.append("<div><b>" + data.name + "</b>: " + data.mess + "</div>")
+            $all_messages.append("<div class='alert alert-'" + data.className + "><b>" + data.name + "</b>: " + data.mess + "</div>")
         })
 
     })
